@@ -14,8 +14,6 @@ class login_api {
     var status = json.decode(response.body.toString());
 
     var token = status['result'.toString()];
-
-
     print(username.toString());
     print(password.toString());
     print(token['token'].toString());
