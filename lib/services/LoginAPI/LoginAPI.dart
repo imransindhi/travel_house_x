@@ -13,7 +13,7 @@ class LoginAPI {
         'http://apidev.travelhouse.world/api/v1/user/login?username=$username&password=$password';
 
     var response = await http
-        .post(Uri.encodeFull(makeURL), headers: {"X-API-KEY": "CODEX@123"});
+        .post(Uri.encodeFull(makeURL), headers: {"x-api-key": "codex@123"});
 
     var status = json.decode(response.body.toString());
 

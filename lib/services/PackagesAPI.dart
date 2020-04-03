@@ -6,14 +6,17 @@ class PackagesAPI
 {
   Future<List<PackagesInformation>> getPackageInformation() async {
     String URL = "http://apidev.travelhouse.world/api/v1/packages";
-    var data = await http.get(Uri.encodeFull(URL), headers: {"X-API-KEY": "CODEX@123"});
-    // convert data into JSON object
-    var jsonData = json.decode(data.body);
+
+
+    var response = await http.get(Uri.encodeFull(URL), headers: {"x-api-key": "codex@123"});
+//    // convert data into JSON object
+    var jsonData = json.decode(response.body.toString());
     List<PackagesInformation> package_information = [];
     for (var u in jsonData)
       {
-        PackagesInformation packagesInformation = PackagesInformation(u["holidayName"] ,u["packageDescription"], u["holidayAvailableFrom"], u["holidayAvailableTo"], u["holidayTravelDateFrom"], u["holidayTravelDateTo"], u["noOfNights"], u["noOfDays"], u["starRating"], u["packagePrice"], u["primaryImage"]);
+        PackagesInformation packagesInformation = PackagesInformation(u["holiday_name"] ,u["package_description"], u["holiday_available_from"], u["holiday_available_to"], u["holiday_travel_date_from"], u["holiday_travel_date_to"], u["no_of_nights"], u["no_of_days"], u["star_rating"], u["package_price"], u["primary_image"]);
         package_information.add(packagesInformation);
       }
+    return package_information;
 }
 }
