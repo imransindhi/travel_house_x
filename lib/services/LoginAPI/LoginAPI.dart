@@ -3,9 +3,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:travel_house_x/services/LoginAPI/LoginInterface.dart';
+import 'package:travel_house_x/utils/LogUtils.dart';
 
 class LoginAPI {
   LoginInterface _loginInterface;
+
   LoginAPI(this._loginInterface);
 
   Future<void> makeRequest(String username, String password) async {
@@ -18,11 +20,11 @@ class LoginAPI {
     var status = json.decode(response.body.toString());
 
     var token = status['result'.toString()];
-    print(username.toString());
-    print(password.toString());
-    print(token['token'].toString());
+    LogUtils.d(username.toString());
+    LogUtils.d(password.toString());
+    LogUtils.d(token['token'].toString());
 
-//    print("STATUS: ${status['status'].runtimeType}");
+//    LogUtils.d("STATUS: ${status['status'].runtimeType}");
 
     if (status['status'] == true) {
       SharedPreferences sharedPreferences =
@@ -30,19 +32,22 @@ class LoginAPI {
       sharedPreferences.setString('username', username);
       sharedPreferences.setString('password', password);
       sharedPreferences.setString('token', token['token'].toString());
-      print('The token is saved as ' + sharedPreferences.getString('username'));
-      print('The token is saved as ' + sharedPreferences.getString('password'));
-      print('The token is saved as ' + sharedPreferences.getString('token'));
+      LogUtils.d(
+          'The token is saved as ' + sharedPreferences.getString('username'));
+      LogUtils.d(
+          'The token is saved as ' + sharedPreferences.getString('password'));
+      LogUtils.d(
+          'The token is saved as ' + sharedPreferences.getString('token'));
       _loginInterface.onSuccessLogin(token['token']);
     } else {
-      print('Invalid username or password');
-      _loginInterface.onFailure(token['token']);
+      LogUtils.e('Invalid username or password');
+      _loginInterface.onFailureLogin(token['token']);
     }
 
-//    print(response.body);
-//    print(makeURL);
+//    LogUtils.d(response.body);
+//    LogUtils.d(makeURL);
 //
-//    print(username);
-//    print(password);
+//    LogUtils.d(username);
+//    LogUtils.d(password);
   }
 }

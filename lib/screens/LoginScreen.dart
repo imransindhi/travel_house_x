@@ -151,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginInterface {
   }
 
   @override
-  void onFailure(String message) {
+  void onFailureLogin(String message) {
     hideLoading();
     mySnackBar(
         _scaffoldKey,
