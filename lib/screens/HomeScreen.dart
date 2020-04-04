@@ -3,6 +3,7 @@ import 'package:travel_house_x/dataClasses/PackageInfo.dart';
 import 'package:travel_house_x/services/PackagesAPI/PackagesAPI.dart';
 import 'package:travel_house_x/services/PackagesAPI/PackagesAPIInterface.dart';
 import 'package:travel_house_x/services/UserInformationAPI/UserInformationAPI.dart';
+import 'package:travel_house_x/screens/ExploreScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen>
             }).toList(),
           ),
         ),
-      ),
+        ),
     );
   }
 
@@ -83,26 +84,27 @@ class ChoicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle textStyle = Theme.of(context).textTheme.display1;
-    return Card(
-      color: Colors.white,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Icon(
-              choice.icon,
-              size: 150.0,
-              color: textStyle.color,
-            ),
-            Text(
-              choice.title,
-              style: textStyle,
-            ),
-          ],
-        ),
-      ),
-    );
+//    final TextStyle textStyle = Theme.of(context).textTheme.display1;
+    return ExploreScreen();
+//    return Card(
+//      color: Colors.white,
+//      child: Center(
+//        child: Column(
+//          mainAxisSize: MainAxisSize.min,
+//          crossAxisAlignment: CrossAxisAlignment.center,
+//          children: <Widget>[
+//            Icon(
+//              choice.icon,
+//              size: 150.0,
+//              color: textStyle.color,
+//            ),
+//            Text(
+//              choice.title,
+//              style: textStyle,
+//            ),
+//          ],
+//        ),
+//      ),
+//    );
   }
 }
