@@ -5,6 +5,9 @@ import 'package:travel_house_x/services/PackagesAPI/PackagesAPIInterface.dart';
 import 'package:travel_house_x/services/UserInformationAPI/UserInformationAPI.dart';
 import 'package:travel_house_x/screens/ExploreScreen.dart';
 
+// NOTE: Global key to control Explore screen state after receiving success from Packages API
+GlobalKey<ExploreScreenState> exploreScreenStateKey = GlobalKey();
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -48,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen>
             }).toList(),
           ),
         ),
-        ),
+      ),
     );
   }
 
@@ -60,6 +63,9 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   void onSuccessPackages(List<PackageInfo> packagesInfoList) {
     this.packagesInfoList = packagesInfoList;
+
+    // Call function inside ExploreScreenState by referring to current state via Global key
+    exploreScreenStateKey.currentState.updateImages(packagesInfoList);
   }
 }
 
@@ -79,13 +85,15 @@ const List<Choice> choices = <Choice>[
 ];
 
 class ChoicePage extends StatelessWidget {
-  const ChoicePage({Key key, this.choice}) : super(key: key);
+  ChoicePage({Key key, this.choice}) : super(key: key);
   final Choice choice;
 
   @override
   Widget build(BuildContext context) {
 //    final TextStyle textStyle = Theme.of(context).textTheme.display1;
-    return ExploreScreen();
+
+  // NOTE: Pass Global key to Explore Screen constructor
+    return ExploreScreen(key: exploreScreenStateKey);
 //    return Card(
 //      color: Colors.white,
 //      child: Center(
